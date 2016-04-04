@@ -50,13 +50,14 @@ module GitStats
       end
 
       def commits
-        @commits ||= run_and_parse("git rev-list --pretty=format:'%h|%at|%ai|%aE' #{commit_range} #{tree_path} | grep -v commit").map do |commit_line|
+        @commits ||= run_and_parse("git rev-list --pretty=format:'%h|%at|%ai|%aE|%s' #{commit_range} #{tree_path} | grep -v commit").map do |commit_line|
           Commit.new(
               repo: self,
               sha: commit_line[:sha],
               stamp: commit_line[:stamp],
               date: DateTime.parse(commit_line[:date]),
-              author: authors.first! { |a| a.email == commit_line[:author_email] }
+              author: authors.first! { |a| a.email == commit_line[:author_email] },
+              message: commit_line[:message]
           )
         end.sort_by! { |e| e.date }
       end

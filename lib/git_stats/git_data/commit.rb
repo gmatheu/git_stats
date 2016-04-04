@@ -6,7 +6,7 @@ module GitStats
     class Commit
       include HashInitializable
 
-      attr_reader :repo, :sha, :stamp, :date, :author
+      attr_reader :repo, :sha, :stamp, :date, :author, :message
 
       def files
         @files ||= repo.run_and_parse("git ls-tree -r #{self.sha} -- #{repo.tree_path}").map do |file|
