@@ -50,7 +50,7 @@ module GitStats
       end
 
       def commits
-        @commits ||= run_and_parse("git rev-list --pretty=format:'%h|%at|%ai|%aE|%s' #{commit_range} #{tree_path} | grep -v commit").map do |commit_line|
+        @commits ||= run_and_parse("git rev-list --pretty=format:'%h|%at|%ai|%aE|%s' #{commit_range} #{tree_path} | grep -ve '^commit'").map do |commit_line|
           Commit.new(
               repo: self,
               sha: commit_line[:sha],

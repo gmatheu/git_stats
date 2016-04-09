@@ -33,7 +33,7 @@ describe GitStats::GitData::Repo do
       end
 
       it 'should affect commits command' do
-        repo.should_receive(:run).with("git rev-list --pretty=format:'%h|%at|%ai|%aE|%s' abc..def . | grep -v commit").and_return("")
+        repo.should_receive(:run).with("git rev-list --pretty=format:'%h|%at|%ai|%aE|%s' abc..def . | grep -ve '^commit'").and_return("")
         repo.commits
       end
 
