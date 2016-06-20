@@ -24,3 +24,5 @@ tmp
 .rvmrc
 .ruby-version
 .ruby-gemset
+
+test_repo_generate
